@@ -85,11 +85,11 @@
   <field name="description" type="text_ja" multiValued="false" indexed="true" stored="true"/>
   <field name="url1" type="string" multiValued="false" indexed="false" stored="true"/>
 
-  <field name="name_ja" type="text_ja" multiValued="false" indexed="true" />
-  <field name="name_bigram" type="text_ja_bigram" multiValued="false" indexed="true" />
-  <field name="synonyms_ja" type="text_ja" multiValued="true" indexed="true" />
-  <field name="synonyms_bigram" type="text_ja_bigram" multiValued="true" indexed="true" />
-  <field name="ruby_bigram" type="text_ja_bigram" multiValued="false" indexed="true" />
+  <field name="name_ja" type="text_ja" multiValued="false" indexed="true" stored="false" />
+  <field name="name_bigram" type="text_ja_bigram" multiValued="false" indexed="true" stored="false" />
+  <field name="synonyms_ja" type="text_ja" multiValued="true" indexed="true" stored="false" />
+  <field name="synonyms_bigram" type="text_ja_bigram" multiValued="true" indexed="true" stored="false" />
+  <field name="ruby_bigram" type="text_ja_bigram" multiValued="false" indexed="true" stored="false" />
 
   <copyField source="name" dest="name_ja" />
   <copyField source="name" dest="name_bigram" />
