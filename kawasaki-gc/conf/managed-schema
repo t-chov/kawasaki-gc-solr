@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Solr managed schema - automatically generated - DO NOT EDIT -->
+<schema name="kawasaki-gc" version="1.6">
+  <uniqueKey>id</uniqueKey>
+  <fieldType name="ancestor_path" class="solr.TextField">
+    <analyzer type="index">
+      <tokenizer class="solr.KeywordTokenizerFactory"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.PathHierarchyTokenizerFactory" delimiter="/"/>
+    </analyzer>
+  </fieldType>
+  <fieldType name="binary" class="solr.BinaryField"/>
+  <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
+  <fieldType name="booleans" class="solr.BoolField" sortMissingLast="true" multiValued="true"/>
+  <fieldType name="descendent_path" class="solr.TextField">
+    <analyzer type="index">
+      <tokenizer class="solr.PathHierarchyTokenizerFactory" delimiter="/"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.KeywordTokenizerFactory"/>
+    </analyzer>
+  </fieldType>
+  <fieldType name="ignored" class="solr.StrField" indexed="false" stored="false" multiValued="true"/>
+  <fieldType name="location" class="solr.LatLonType" subFieldSuffix="_coordinate"/>
+  <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType" geo="true" maxDistErr="0.001" distErrPct="0.025" distanceUnits="kilometers"/>
+  <fieldType name="pdate" class="solr.DatePointField" docValues="true"/>
+  <fieldType name="pdates" class="solr.DatePointField" docValues="true" multiValued="true"/>
+  <fieldType name="pdouble" class="solr.DoublePointField" docValues="true"/>
+  <fieldType name="pdoubles" class="solr.DoublePointField" docValues="true" multiValued="true"/>
+  <fieldType name="pfloat" class="solr.FloatPointField" docValues="true"/>
+  <fieldType name="pfloats" class="solr.FloatPointField" docValues="true" multiValued="true"/>
+  <fieldType name="pint" class="solr.IntPointField" docValues="true"/>
+  <fieldType name="pints" class="solr.IntPointField" docValues="true" multiValued="true"/>
+  <fieldType name="plong" class="solr.LongPointField" docValues="true"/>
+  <fieldType name="plongs" class="solr.LongPointField" docValues="true" multiValued="true"/>
+  <fieldType name="point" class="solr.PointType" subFieldSuffix="_d" dimension="2"/>
+  <fieldType name="random" class="solr.RandomSortField" indexed="true"/>
+  <fieldType name="string" class="solr.StrField" sortMissingLast="true"/>
+  <fieldType name="strings" class="solr.StrField" sortMissingLast="true" multiValued="true"/>
+  <fieldType name="text_ja" class="solr.TextField" autoGeneratePhraseQueries="true" positionIncrementGap="100">
+    <analyzer>
+      <tokenizer class="solr.JapaneseTokenizerFactory" mode="search"/>
+      <filter class="solr.JapaneseBaseFormFilterFactory"/>
+      <filter class="solr.JapanesePartOfSpeechStopFilterFactory" tags="lang/stoptags_ja.txt"/>
+      <filter class="solr.CJKWidthFilterFactory"/>
+      <filter class="solr.StopFilterFactory" words="lang/stopwords_ja.txt" ignoreCase="true"/>
+      <filter class="solr.JapaneseKatakanaStemFilterFactory" minimumLength="4"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+  </fieldType>
+  <fieldType name="text_ja_kana_normalized" class="solr.TextField" autoGeneratePhraseQueries="true" positionIncrementGap="100">
+    <analyzer>
+      <charFilter class="solr.ICUNormalizer2CharFilterFactory" mode="compose" />
+      <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+      <filter class="solr.CJKWidthFilterFactory"/>
+      <filter class="solr.JapaneseKatakanaStemFilterFactory" minimumLength="4"/>
+      <filter class="solr.ICUTransformFilterFactory" id="Katakana-Hiragana"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+  </fieldType>
+  <fieldType name="text_ws" class="solr.TextField" positionIncrementGap="100">
+    <analyzer>
+      <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+    </analyzer>
+  </fieldType>
+  <fieldType name="text_ja_bigram" class="solr.TextField" autoGeneratePhraseQueries="true" positionIncrementGap="100">
+    <analyzer>
+      <charFilter class="solr.ICUNormalizer2CharFilterFactory" mode="compose" />
+      <tokenizer class="solr.NGramTokenizerFactory" minGramSize="2" maxGramSize="2"/>
+      <filter class="solr.CJKWidthFilterFactory"/>
+      <filter class="solr.ICUTransformFilterFactory" id="Katakana-Hiragana"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+  </fieldType>
+
+  <field name="id" type="string" multiValued="false" indexed="true" required="true" stored="true"/>
+  <field name="_version_" type="plong" indexed="true" stored="true"/>
+  <field name="head_letter" type="string" multiValued="false" indexed="true" required="true" stored="true"/>
+  <field name="name" type="text_ja_kana_normalized" multiValued="false" indexed="true" required="true" stored="true"/>
+  <field name="ruby" type="text_ja_kana_normalized" multiValued="false" indexed="true" stored="true"/>
+  <field name="synonyms" type="text_ja_kana_normalized" multiValued="true" indexed="true" stored="false"/>
+  <field name="general_type" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="detailed_type" type="string" multiValued="false" indexed="true" stored="true"/>
+  <field name="description" type="text_ja" multiValued="false" indexed="true" stored="true"/>
+  <field name="url1" type="string" multiValued="false" indexed="false" stored="true"/>
+
+  <field name="name_ja" type="text_ja" multiValued="false" indexed="true" />
+  <field name="name_bigram" type="text_ja_bigram" multiValued="false" indexed="true" />
+  <field name="synonyms_ja" type="text_ja" multiValued="true" indexed="true" />
+  <field name="synonyms_bigram" type="text_ja_bigram" multiValued="true" indexed="true" />
+  <field name="ruby_bigram" type="text_ja_bigram" multiValued="false" indexed="true" />
+
+  <copyField source="name" dest="name_ja" />
+  <copyField source="name" dest="name_bigram" />
+  <copyField source="ruby" dest="ruby_bigram" />
+
+  <copyField source="synonyms" dest="synonyms_ja" />
+  <copyField source="synonyms" dest="synonyms_bigram" />
+</schema>
