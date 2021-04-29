@@ -823,6 +823,14 @@
     </lst>
   </requestHandler>
 
+  <requestHandler name="/healthcheck" class="solr.SearchHandler">
+    <lst name="defaults">
+      <str name="wt">json</str>
+      <str name="q">*:*</str>
+      <str name="rows">0</str>
+    </lst>
+  </requestHandler>
+
 
   <!--These useParams values are available in params.json-->
   <requestHandler name="/browse" class="solr.SearchHandler" useParams="query,facets,velocity,browse"/>
